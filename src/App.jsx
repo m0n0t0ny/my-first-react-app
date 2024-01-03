@@ -2,10 +2,9 @@ import { useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
 import CardForm from "./components/CardForm";
+import Example from "./components/Example";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   const addCity = (city) => {
     setCities([...cities, city]);
   };
@@ -51,6 +50,7 @@ function App() {
 
   return (
     <>
+      <Example></Example>
       <CardForm addCity={addCity}></CardForm>
       <div className="grid grid-cols-4 gap-10">
         {cities.map((city) => (
@@ -62,11 +62,6 @@ function App() {
             description={city.description}
           ></Card>
         ))}
-      </div>
-      <div className="card mt-10">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
       </div>
     </>
   );
