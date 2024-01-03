@@ -7,6 +7,8 @@ function Example() {
     document.title = `Conteggio: ${count}`;
     console.log("Ciao da use effect");
   }, [count]);
+  //[]=caricamento componente
+  //nulla= ad ogni render del componente
 
   return (
     <div>
