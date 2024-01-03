@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./App.css";
 import Card from "./components/Card";
 import CardForm from "./components/CardForm";
 import Example from "./components/Example";
 
 function App() {
-  const addCity = (city) => {
+  const addCity = city => {
     setCities([...cities, city]);
   };
   const [cities, setCities] = useState([
@@ -48,12 +48,23 @@ function App() {
     }
   ]);
 
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    fetch("https://jsonplaceholder.typicode.com/posts")
+      .then(response => response.json())
+      .then(data => {
+        setData(data);
+        console.log(data);
+      });
+  }, []);
+
   return (
     <>
       <Example></Example>
       <CardForm addCity={addCity}></CardForm>
       <div className="grid grid-cols-4 gap-10">
-        {cities.map((city) => (
+        {cities.map(city => (
           <Card
             key={city.id}
             title={city.title}
@@ -61,6 +72,15 @@ function App() {
             imgUrl={city.imgUrl}
             description={city.description}
           ></Card>
+        ))}
+      </div>
+      <div className="grid grid-cols-4 gap-5">
+        {data.map(post => (
+          <div key={post.id} className="bg-slate-400 rounded-lg p-3">
+            <p className="text-red-500 mb-1">userId: {post.userId}</p>
+            <h2 className="text-xl mb-3">{post.title}</h2>
+            <p className="text-gray-500">userId: {post.body}</p>
+          </div>
         ))}
       </div>
     </>
